@@ -1,3 +1,5 @@
+CREATE DATABASE dbreparatrix
+
 CREATE TABLE User (
     id_user INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(100) NOT NULL,
