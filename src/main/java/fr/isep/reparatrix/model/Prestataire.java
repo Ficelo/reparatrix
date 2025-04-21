@@ -15,11 +15,10 @@ public class Prestataire {
     private String localisation;
     private String entreprise;
     private Float note;
-    private Integer user_id;
     private String siret;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id_user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Long getId() {
@@ -60,14 +59,6 @@ public class Prestataire {
 
     public void setNote(Float note) {
         this.note = note;
-    }
-
-    public Integer getUser_id() {
-        return user_id;
-    }
-
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
     }
 
     public String getSiret() {

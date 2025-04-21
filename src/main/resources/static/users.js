@@ -1,8 +1,6 @@
-
-
 function showUsers() {
 
-    fetch('/users')
+    fetch('/api/users')
         .then(response => response.json())
         .then(users => {
             const userList = document.createElement('ul');

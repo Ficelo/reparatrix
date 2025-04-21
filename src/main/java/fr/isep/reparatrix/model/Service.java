@@ -8,7 +8,7 @@ public class Service {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_prestataire")
+    @Column(name = "id_service")
     private Long id;
 
     private Integer order_id; // Ça devrait pas être une clé étrangère aussi ça ?

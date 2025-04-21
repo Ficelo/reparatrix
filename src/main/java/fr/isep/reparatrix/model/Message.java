@@ -17,13 +17,12 @@ public class Message {
     private Date date;
 
     @ManyToOne
-    @Column(name="expéditeur") //TODO : ça pue un peu ça faut regarder si c'est pas suspect
     @JoinColumn(name = "expéditeur", referencedColumnName = "id_user")
     private User expediteur;
 
     @ManyToOne
     @JoinColumn(name = "destinataire", referencedColumnName = "id_user")
-    private User destinateire;
+    private User destinataire;
 
     public Long getId() {
         return id;
@@ -57,11 +56,11 @@ public class Message {
         this.expediteur = expediteur;
     }
 
-    public User getDestinateire() {
-        return destinateire;
+    public User getDestinataire() {
+        return destinataire;
     }
 
-    public void setDestinateire(User destinateire) {
-        this.destinateire = destinateire;
+    public void setDestinataire(User destinataire) {
+        this.destinataire = destinataire;
     }
 }
