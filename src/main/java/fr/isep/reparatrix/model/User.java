@@ -4,11 +4,12 @@ package fr.isep.reparatrix.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="utilisateur")
+@Table(name="User")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id_user")
     private Long id;
 
     private String username;
