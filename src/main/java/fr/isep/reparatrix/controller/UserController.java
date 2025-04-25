@@ -26,4 +26,27 @@ public class UserController {
         return userRepository.findAll();
     }
 
+    @GetMapping
+    @ResponseBody
+    @RequestMapping("/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        return userRepository.findById(id).map(
+                usr -> {
+                    usr.setId(id);
+                    usr.setUsername(user.getUsername());
+                    usr.setPassword(user.getPassword());
+                    usr.setEmail(user.getEmail());
+                    usr.setRole(user.getRole());
+
+                    return userRepository.save(usr);
+                }
+        ).orElse(null);
+    }
+
+
 }
