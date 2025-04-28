@@ -26,4 +26,26 @@ public class ClientController {
         return clientRepository.findAll();
     }
 
+    @GetMapping
+    @ResponseBody
+    @RequestMapping("/{id}")
+    public Client getClient(@PathVariable Long id) {
+        return clientRepository.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public Client updateClient(@PathVariable Long id, @RequestBody Client client) {
+        return clientRepository.findById(id).map(
+                clien -> {
+
+                    clien.setId(id);
+                    clien.setLocalisation(client.getLocalisation());
+                    clien.setUser(client.getUser());
+                    clien.setNom(client.getNom());
+
+                    return clientRepository.save(clien);
+                }
+        ).orElse(null);
+    }
+
 }
