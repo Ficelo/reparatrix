@@ -18,4 +18,9 @@ public class PageController {
         return "forward:/test.html";
     }
 
+    @GetMapping("/paiement")
+    public String paiement() {
+        return "forward:/paiement.html";
+    }
+
 }
