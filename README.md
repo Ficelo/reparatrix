@@ -12,3 +12,5 @@ En gros :
 - Pis après avec des fonctions JS on peut appeler les fonctions java et paf on affiche ça sur le front.
 
 C'était la super doc de Ficelo
+
+![66b3ea5489be478613512121_43](https://github.com/user-attachments/assets/a32c2870-4a36-44c9-ab54-8c75a022accd)
