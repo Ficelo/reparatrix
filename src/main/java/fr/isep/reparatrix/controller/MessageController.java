@@ -14,7 +14,7 @@ public class MessageController {
     @Autowired
     private MessageRepository messageRepository;
 
-    @PostMapping // TODO: fix ça mais y'a moyen que ce soit plus un problème de conception de la tablea
+    @PostMapping
     public Message createMessage(@RequestBody Message message) {
         return messageRepository.save(message);
     }
