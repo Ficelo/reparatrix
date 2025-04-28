@@ -25,4 +25,27 @@ public class MessageController {
         return messageRepository.findAll();
     }
 
+    @GetMapping
+    @ResponseBody
+    @RequestMapping("/{id}")
+    public Message getMessage(@PathVariable Long id) {
+        return messageRepository.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public Message updateMessage(@PathVariable Long id, @RequestBody Message message) {
+        return messageRepository.findById(id).map(
+                msg -> {
+
+                    msg.setId(id);
+                    msg.setDate(message.getDate());
+                    msg.setTexte(message.getTexte());
+                    msg.setDestinataire(message.getDestinataire());
+                    msg.setExpediteur(message.getExpediteur());
+
+                    return messageRepository.save(msg);
+                }
+        ).orElse(null);
+    }
+
 }

@@ -25,4 +25,27 @@ public class CommandeController {
         return commandeRepository.findAll();
     }
 
+    @GetMapping
+    @ResponseBody
+    @RequestMapping("/{id}")
+    public Commande getCommandeById(@PathVariable Long id) {
+        return commandeRepository.findById(id).orElse(null);
+    }
+
+    @PutMapping("/{id}")
+    public Commande updateCommande(@PathVariable Long id, @RequestBody Commande commande) {
+        return commandeRepository.findById(id).map(
+                command -> {
+
+                    command.setId(id);
+                    command.setClient(commande.getClient());
+                    command.setPrestataire(commande.getPrestataire());
+                    command.setPrixtot(commande.getPrixtot());
+                    command.setUrgence(commande.isUrgence());
+
+                    return commandeRepository.save(command);
+                }
+        ).orElse(null);
+    }
+
 }
