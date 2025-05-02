@@ -18,4 +18,9 @@ public class PageController {
         return "forward:/test.html";
     }
 
+    @GetMapping("/test-geolocalisation")
+    public String testGeoLocalisation() {
+        return "forward:/test-geolocation.html";
+    }
+
 }

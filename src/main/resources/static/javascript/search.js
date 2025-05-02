@@ -5,21 +5,22 @@ function searchForProfession(inputId) {
     let noteMin = document.getElementById("noteRange")
     const resultats = document.getElementById("results")
 
-    fetch('/api/prestataires?profession=' + input.value + "&noteMin=" + noteMin.value + "&distanceMax=" + distanceMax.value)
+    resultats.innerHTML = '';
+
+    fetch('/api/prestataires?profession=' + input.value.toLowerCase() + "&noteMin=" + noteMin.value + "&distanceMax=" + distanceMax.value)
         .then(reponse => reponse.json())
         .then(prestas => {
-            const prestaList = document.createElement('ul');
-            resultats.appendChild(prestaList);
-               prestas.forEach(presta => {
-                   const li = document.createElement('li');
-                   console.log(presta)
-                   console.log(presta.user)
-                   li.textContent = `id : ${presta.id}, profession : ${presta.profession}, localisation : ${presta.localisation}, username : ${presta.user.username}`;
-                   prestaList.appendChild(li);
-               });
+            prestas.forEach(presta => {
+                const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession)
+                for (let i = 0; i < 8; i++) {
+                    const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession);
+                    resultats.appendChild(card);
+                    addRandomMapMarker(48.864716, 2.349014, presta.entreprise, 10000);
+                }
+
+            });
         })
         .catch( err => console.error('Error fetching prestataires:', err))
-
 }
 
 function updateSearchValueDisplay(displayId, rangeId, suffix) {
@@ -36,3 +37,71 @@ function updateSearchValueDisplay(displayId, rangeId, suffix) {
     //console.log(range.value)
 
 }
+
+function getDistance(coordsUser, coordsPresta) {
+
+    // TODO: implémenter le vrai calcul de distances
+
+    return Math.floor(Math.random() * 30);
+}
+
+// ça j'ai copié de chatgpt juste pour avoir un visuel vite fais
+function addRandomMapMarker(centerLat, centerLng, label, radiusInMeters = 1000) {
+    const radiusInDegrees = radiusInMeters / 111320; // approx meters per degree latitude
+
+    const u = Math.random();
+    const v = Math.random();
+    const w = radiusInDegrees * Math.sqrt(u);
+    const t = 2 * Math.PI * v;
+    const offsetLat = w * Math.cos(t);
+    const offsetLng = w * Math.sin(t) / Math.cos(centerLat * (Math.PI / 180));
+
+    const newLat = centerLat + offsetLat;
+    const newLng = centerLng + offsetLng;
+
+    L.marker([newLat, newLng])
+        .addTo(window.myMap)
+        .bindPopup(label);
+}
+
+class PrestataireCard extends HTMLElement {
+
+    constructor(entreprise, distance, note, profession) {
+        super();
+        this.attachShadow({mode: "open"});
+
+        this.shadowRoot.innerHTML = `
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+            <style>
+                .card {
+                    margin-bottom: 5px;
+                }
+                .entreprise-affichage {
+                    display: flex;
+                    flex-direction: row;
+                }
+                
+                img {
+                    width: 200px;
+                    height: auto;
+                    border-radius: 10px;
+                    object-fit: cover;
+                    margin-right: 20px;
+                }
+                
+            </style>
+            <div class="card">
+                <div class="card-body entreprise-affichage">
+                    <img alt="image métier" src="../images/professions/${profession}.png"/>
+                    <div>
+                        <p>Entrerpise : <span id="entreprise">${entreprise}</span></p>
+                        <p>Distance : <span id="distance">${distance} km</span></p>
+                        <p>Note : <span id="note">${note} / 5</span></p>
+                    </div>
+                </div>
+            </div>
+            `;
+    }
+
+}
+customElements.define("prestataire-card", PrestataireCard);

@@ -34,16 +34,21 @@ body, html {
 
 #results {
     flex: 1;
-    overflow-y: auto;
+    overflow-y: scroll;
 }
 
-#map {
+#map-wrapper {
     flex: 1;
     background-color: #e9ecef;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    margin: 1rem;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
 }
 
 #map img {
