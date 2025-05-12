@@ -11,9 +11,9 @@ function searchForProfession(inputId) {
         .then(reponse => reponse.json())
         .then(prestas => {
             prestas.forEach(presta => {
-                const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession)
+                const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession, presta.id)
                 for (let i = 0; i < 8; i++) {
-                    const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession);
+                    const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession, presta.id);
                     resultats.appendChild(card);
                     addRandomMapMarker(48.864716, 2.349014, presta.entreprise, 10000);
                 }
@@ -66,7 +66,7 @@ function addRandomMapMarker(centerLat, centerLng, label, radiusInMeters = 1000) 
 
 class PrestataireCard extends HTMLElement {
 
-    constructor(entreprise, distance, note, profession) {
+    constructor(entreprise, distance, note, profession, id) {
         super();
         this.attachShadow({mode: "open"});
 
@@ -94,7 +94,7 @@ class PrestataireCard extends HTMLElement {
                 <div class="card-body entreprise-affichage">
                     <img alt="image métier" src="../images/professions/${profession}.png"/>
                     <div>
-                        <p>Entrerpise : <span id="entreprise">${entreprise}</span></p>
+                        <p>Entrerpise : <a href="/entreprise?entreprise=${id}"><span id="entreprise">${entreprise}</span></a></p>
                         <p>Distance : <span id="distance">${distance} km</span></p>
                         <p>Note : <span id="note">${note} / 5</span></p>
                     </div>

@@ -23,4 +23,14 @@ public class PageController {
         return "forward:/test-geolocation.html";
     }
 
+    @GetMapping("/entreprise")
+    public String entreprise() {
+        return "forward:/entreprise.html";
+    }
+
+    @GetMapping("/service")
+    public String service() {
+        return "forward:/service.html";
+    }
+
 }

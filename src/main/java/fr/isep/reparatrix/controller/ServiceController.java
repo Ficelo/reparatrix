@@ -25,4 +25,16 @@ public class ServiceController {
         return serviceRepository.findAll();
     }
 
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Service getServiceById(@PathVariable("id") Long id) {
+        return serviceRepository.findById(id).orElse(null);
+    }
+
+    @GetMapping("/prestataireId/{id}")
+    @ResponseBody
+    public List<Service> getServicesByPrestataire(@PathVariable Long id) {
+        return serviceRepository.findByPrestataireId(id);
+    }
+
 }
