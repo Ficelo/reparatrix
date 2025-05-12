@@ -33,6 +33,12 @@ public class UserController {
         return userRepository.findById(id).orElse(null);
     }
 
+    @GetMapping("/email/{email}")
+    @ResponseBody
+    public User getUserByEmail(@PathVariable String email) {
+        return userRepository.findByEmail(email);
+    }
+
     @PutMapping("/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User user) {
         return userRepository.findById(id).map(

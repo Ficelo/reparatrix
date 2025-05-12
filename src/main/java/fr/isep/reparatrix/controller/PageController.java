@@ -33,4 +33,10 @@ public class PageController {
         return "forward:/service.html";
     }
 
+    @GetMapping("/login")
+    public String login() {return "forward:/login.html";}
+
+    @GetMapping("/signup")
+    public String signup() {return "forward:/signup.html";}
+
 }

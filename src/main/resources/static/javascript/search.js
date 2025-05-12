@@ -17,7 +17,6 @@ function searchForProfession(inputId) {
                     resultats.appendChild(card);
                     addRandomMapMarker(48.864716, 2.349014, presta.entreprise, 10000);
                 }
-
             });
         })
         .catch( err => console.error('Error fetching prestataires:', err))
