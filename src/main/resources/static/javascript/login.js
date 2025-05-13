@@ -19,7 +19,22 @@ async function getUserByEmail(email) {
     return await response.json();
 }
 
+// Vérifier que on est connecté
+function checkLoggedIn() {
+
+    const user = localStorage.getItem("user");
+    if(user == null) {
+        window.location.href = "/login";
+    }
+
+}
+
+// remplir si on fait des fonctions d'admin
+function checkRights() {
+
+}
+
 // Pas encore testé je regarderai plus tard
-window.logout = function () {
+function logOut() {
     localStorage.clear();
 }
