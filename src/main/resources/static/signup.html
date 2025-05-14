@@ -2,9 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign up</title>
+
+    <script src="javascript/signup.js"></script>
 </head>
 <body>
+    <form>
+        <label>
+            <input type="text" placeholder="nom" id="nom">
+        </label>
+        <label>
+            <input type="text" placeholder="prenom" id="prenom">
+        </label>
+        <label>
+            <input type="password" placeholder="mot de passe" id="password">
+        </label>
+        <input type="text" placeholder="email" id="email">
+        <label for="password-confirm"></label><input type="password" placeholder="Confirmer le mot de passe" id="password-confirm">
+        <label for="radio-entreprise">Entreprise : </label>
+        <label>
+            <input type="radio" name="user-type" id="radio-client" checked onchange="toggleEntrepriseFields()">
+            Client
+        </label>
+        <label>
+            <input type="radio" name="user-type" id="radio-entreprise" onchange="toggleEntrepriseFields()">
+            Entreprise
+        </label>
 
+
+        <div id="infos-prestataire" style="display: none;">
+            <input type="text" placeholder="entreprise" id="entreprise">
+            <input type="text" placeholder="profession" id="profession">
+            <input type="text" placeholder="siret" id="siret">
+        </div>
+
+        <button id="geo-button" onclick="getGeolocation(event)">Localisez vous</button>
+
+        <button class="btn btn-primary" id="create-button" disabled="true" onclick="createAccountValidation(event)">Create account</button>
+    </form>
 </body>
 </html>
