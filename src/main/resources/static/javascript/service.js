@@ -1,6 +1,5 @@
 let SERVICE = null;
 
-
 function postAvis() {
     // TODO : faire un check pour vérifier que tout est bien rempli
     const ratingInputs = document.querySelectorAll('input[name="rating"]');
@@ -14,17 +13,12 @@ function postAvis() {
         }
     });
 
+
     let avisData = {
         commentaire: commentaire,
         note: parseInt(selectedRating),
         service: SERVICE,
-        user : { // test faudra mettre le vrai après
-            "id": 1,
-            "username": "username A",
-            "password": "1234",
-            "email": "testuser@gmail.com",
-            "role": "user"
-        }
+        user : JSON.parse(window.localStorage.getItem("user"))
     }
 
     const response = fetch("/api/avis",{
@@ -33,7 +27,22 @@ function postAvis() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(avisData)
-    });
+    }).then( () => {
+            // Vider le truc commentaire et les avis
+            ratingInputs.forEach(input => {
+                input.checked = false;
+            })
+            commentaireInput.value = "";
+            const avisDiv = document.getElementById("avis");
+            const serviceDiv = document.getElementById("service");
+
+            serviceDiv.innerText = "";
+            avisDiv.innerText = ""; // Ptet revoir comment ça ça marche
+            loadService(); // C'est pas tip top de faire comme ça faudrait un peu refacto
+        }
+    );
+
+
 }
 
 async function loadService() {

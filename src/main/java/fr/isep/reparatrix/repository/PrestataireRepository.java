@@ -8,5 +8,6 @@ import java.util.List;
 public interface PrestataireRepository extends JpaRepository<Prestataire, Long> {
 
     List<Prestataire> findByProfession(String profession);
+    List<Prestataire> getPrestataireByUserId(Long userId);
 
 }

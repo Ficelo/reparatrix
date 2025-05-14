@@ -33,6 +33,12 @@ public class ClientController {
         return clientRepository.findById(id).orElse(null);
     }
 
+    @GetMapping("/userId/{id}")
+    @ResponseBody
+    public List<Client> getClientByUserId(@PathVariable Long id) { // A changer en client unique mais c'est plus pratique pour les tests
+        return clientRepository.getClientByUserId(id);
+    }
+
     @PutMapping("/{id}")
     public Client updateClient(@PathVariable Long id, @RequestBody Client client) {
         return clientRepository.findById(id).map(
