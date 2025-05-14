@@ -23,4 +23,25 @@ public class PageController {
         return "forward:/paiement.html";
     }
 
+    @GetMapping("/test-geolocalisation")
+    public String testGeoLocalisation() {
+        return "forward:/test-geolocation.html";
+    }
+
+    @GetMapping("/entreprise")
+    public String entreprise() {
+        return "forward:/entreprise.html";
+    }
+
+    @GetMapping("/service")
+    public String service() {
+        return "forward:/service.html";
+    }
+
+    @GetMapping("/login")
+    public String login() {return "forward:/login.html";}
+
+    @GetMapping("/signup")
+    public String signup() {return "forward:/signup.html";}
+
 }

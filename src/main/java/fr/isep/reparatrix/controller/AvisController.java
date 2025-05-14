@@ -33,6 +33,13 @@ public class AvisController {
         return avisRepository.findById(id).orElse(null);
     }
 
+    @GetMapping("/service/{id}")
+    @ResponseBody
+    public List<Avis> getAvisFromServiceId(@PathVariable Long id){
+        return avisRepository.findByServiceId(id);
+    }
+
+
     @PutMapping("/{id}")
     public Avis updateAvis(@PathVariable Long id, @RequestBody Avis avis) {
         return avisRepository.findById(id).map(
