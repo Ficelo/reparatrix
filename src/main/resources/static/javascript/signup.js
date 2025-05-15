@@ -144,10 +144,11 @@ function getGeolocation(event) {
 
 function toggleEntrepriseFields() {
     const radioEntreprise = document.getElementById("radio-entreprise");
-    const infosPrestataire = document.getElementById("infos-prestataire");
+    const entrepriseFields = document.getElementById("entreprise-fields");
 
-    infosPrestataire.style.display = radioEntreprise.checked ? "block" : "none";
+    entrepriseFields.style.display = radioEntreprise.checked ? "flex" : "none";
 }
+
 
 
 

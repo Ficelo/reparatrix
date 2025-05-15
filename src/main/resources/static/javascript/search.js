@@ -1,13 +1,37 @@
 LONGITUDE = 0;
 LATITUDE = 0;
 
+function onInitSearch() {
+
+    const params = new URLSearchParams(document.location.search);
+    const searchParam = params.get("s");
+
+    const searchbar = document.getElementById("search")
+    searchbar.value = searchParam;
+
+    searchForProfession("search");
+
+}
+
+function searchEnter() {
+    if(event.key === 'Enter'){
+        searchForProfession("search");
+    }
+}
 
 function searchForProfession(inputId) {
+
+    const params = new URLSearchParams(document.location.search);
 
     let input = document.getElementById(inputId);
     let distanceMax = document.getElementById("distanceRange")
     let noteMin = document.getElementById("noteRange")
     const resultats = document.getElementById("results")
+
+    // Juste pour mettre à jour l'url
+    params.set("s", input.value.toLowerCase());
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, "", newUrl);
 
     resultats.innerHTML = '';
 

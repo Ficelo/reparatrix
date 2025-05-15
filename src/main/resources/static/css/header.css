@@ -1,0 +1,67 @@
+.topbar-reparatrix {
+    background-color: #62B59D;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.topbar-reparatrix a {
+    text-decoration: none;
+}
+
+.logo-tagline {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+}
+
+.logo-tagline img {
+    height: 80px;
+}
+
+.tagline {
+    font-size: 1rem;
+    color: white;
+    font-weight: bold;
+    margin-top: -0.5rem;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.button-group button {
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background-color: #91BDA7;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.button-group button:hover {
+    background-color: #78A88C;
+}
+
+.button-group .gear-button {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-group .gear-button img {
+    width: 20px;
+    height: 20px;
+    filter: brightness(0) invert(1);
+}
