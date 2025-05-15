@@ -52,5 +52,6 @@ function checkRights() {
 
 // Pas encore testé je regarderai plus tard
 function logOut() {
+    window.location.reload();
     localStorage.clear();
 }

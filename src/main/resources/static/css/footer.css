@@ -1,0 +1,37 @@
+.footer-reparatrix {
+    background-color: #91BDA7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    flex-wrap: wrap;
+    color: white;
+}
+
+.social-icons,
+.footer-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.footer-links button {
+    background: none;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.footer-links button:hover {
+    text-decoration: underline;
+}
+
+a img {
+    filter: brightness(0) invert(1); /* makes icons white-ish */
+    transition: transform 0.2s;
+}
+
+a img:hover {
+    transform: scale(1.1);
+}
