@@ -78,6 +78,22 @@ async function loadService() {
 
 }
 
+function commander() {
+    // TODO : Mettre le truc de paiment quand mogane aura fini
+}
+
+function contacter() {
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("service");
+    const service = getService(id).then(
+        value => {
+            console.log(value.prestataire.user.id);
+            window.location.href = "/chat?u=" + value.prestataire.user.id;
+        }
+    );
+}
+
 async function getService(id) {
     const response = await fetch('/api/services/' + id);
     if (!response.ok) throw new Error("HTTP error " + response.status);

@@ -15,7 +15,7 @@ async function loadEntreprise() {
         servicesDiv.appendChild(serv);
     });
 
-    titre.innerText = "Entreprise : " + prestataire.entreprise;
+    titre.innerText = prestataire.entreprise;
 }
 
 async function getPrestataire(id){
@@ -41,6 +41,12 @@ class ServiceCard extends HTMLElement {
             <style>
                 .card {
                     margin-bottom: 5px;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+        
+                .card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
                 }
                 .entreprise-affichage {
                     display: flex;

@@ -39,4 +39,10 @@ public class PageController {
     @GetMapping("/signup")
     public String signup() {return "forward:/signup.html";}
 
+    @GetMapping("/chat")
+    public String message() {return "forward:/chat.html";}
+
+    @GetMapping("/profil")
+    public String profil() {return "forward:/profil.html";}
+
 }

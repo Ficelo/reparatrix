@@ -1,0 +1,30 @@
+#titre-page {
+    text-align: center;
+    font-size: 2rem;
+    margin-top: 1rem;
+    color: #333;
+}
+
+#services {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 2rem;
+    justify-content: center;
+}
+
+main {
+    padding: 1rem;
+}
+
+@media (max-width: 768px) {
+    #services {
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    #titre-page {
+        font-size: 1.5rem;
+    }
+}
