@@ -39,4 +39,7 @@ public class PageController {
     @GetMapping("/signup")
     public String signup() {return "forward:/signup.html";}
 
+    @GetMapping("/faq")
+    public String faq() {return "forward:/faq.html";}
+
 }
