@@ -64,7 +64,7 @@ class FooterReparatrix extends HTMLElement {
                 </div>
                 <div class="footer-links">
                     <a href="/"><button>A propos</button></a>
-                    <a href="/"><button>CGU</button></a>
+                    <a href="/images/WebTechnologyProjet2025.pdf"><button>CGU</button></a>
                     <a href="/faq.html"><button>FAQ</button></a>
                 </div>
             </div>
