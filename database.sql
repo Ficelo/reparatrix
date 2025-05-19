@@ -66,3 +66,9 @@ CREATE TABLE Message (
     FOREIGN KEY (expéditeur) REFERENCES User(id_user),
     FOREIGN KEY (destinataire) REFERENCES User(id_user)
 );
+
+CREATE TABLE Faq (
+	id_faq INT PRIMARY KEY AUTO_INCREMENT,
+	question VARCHAR(300) NOT NULL,
+	reponse VARCHAR(300)
+);

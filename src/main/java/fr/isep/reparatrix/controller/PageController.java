@@ -45,4 +45,7 @@ public class PageController {
     @GetMapping("/profil")
     public String profil() {return "forward:/profil.html";}
 
+    @GetMapping("/faq")
+    public String faq() {return "forward:/faq.html";}
+
 }
