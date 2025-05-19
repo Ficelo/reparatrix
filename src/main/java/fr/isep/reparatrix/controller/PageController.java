@@ -18,6 +18,26 @@ public class PageController {
         return "forward:/test.html";
     }
 
+    @GetMapping("/paiement")
+    public String paiement() {
+        return "forward:/paiement.html";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout() {
+        return "forward:/checkout.html";
+    }
+
+    @GetMapping("/cancel")
+    public String cancel() {
+        return "forward:/cancel.html";
+    }
+
+    @GetMapping("/succes")
+    public String succes() {
+        return "success"; // nom du fichier .html dans templates/
+    }
+
     @GetMapping("/test-geolocalisation")
     public String testGeoLocalisation() {
         return "forward:/test-geolocation.html";
