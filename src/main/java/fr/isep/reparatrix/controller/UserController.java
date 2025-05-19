@@ -21,15 +21,12 @@ public class UserController {
     }
 
     @GetMapping
-    @ResponseBody
-    public List<User> getAllUsers(Model model) {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    @GetMapping
-    @ResponseBody
-    @RequestMapping("/{id}")
-    public User getUser(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public User getUser(@PathVariable Long id){
         return userRepository.findById(id).orElse(null);
     }
 

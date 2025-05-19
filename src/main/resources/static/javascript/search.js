@@ -1,9 +1,37 @@
+LONGITUDE = 0;
+LATITUDE = 0;
+
+function onInitSearch() {
+
+    const params = new URLSearchParams(document.location.search);
+    const searchParam = params.get("s");
+
+    const searchbar = document.getElementById("search")
+    searchbar.value = searchParam;
+
+    searchForProfession("search");
+
+}
+
+function searchEnter() {
+    if(event.key === 'Enter'){
+        searchForProfession("search");
+    }
+}
+
 function searchForProfession(inputId) {
+
+    const params = new URLSearchParams(document.location.search);
 
     let input = document.getElementById(inputId);
     let distanceMax = document.getElementById("distanceRange")
     let noteMin = document.getElementById("noteRange")
     const resultats = document.getElementById("results")
+
+    // Juste pour mettre à jour l'url
+    params.set("s", input.value.toLowerCase());
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState({}, "", newUrl);
 
     resultats.innerHTML = '';
 
@@ -11,9 +39,9 @@ function searchForProfession(inputId) {
         .then(reponse => reponse.json())
         .then(prestas => {
             prestas.forEach(presta => {
-                const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession, presta.id)
+                const card = new PrestataireCard(presta.entreprise, getDistance(getClientCoords(), ""), presta.note, presta.profession, presta.id)
                 for (let i = 0; i < 8; i++) {
-                    const card = new PrestataireCard(presta.entreprise, getDistance("", ""), presta.note, presta.profession, presta.id);
+                    const card = new PrestataireCard(presta.entreprise, getDistance(getClientCoords(), ""), presta.note, presta.profession, presta.id);
                     resultats.appendChild(card);
                     addRandomMapMarker(48.864716, 2.349014, presta.entreprise, 10000);
                 }
@@ -24,8 +52,6 @@ function searchForProfession(inputId) {
 
 function updateSearchValueDisplay(displayId, rangeId, suffix) {
 
-
-
     const display = document.getElementById(displayId);
     console.log(display.innerText)
     const range = document.getElementById(rangeId);
@@ -33,15 +59,27 @@ function updateSearchValueDisplay(displayId, rangeId, suffix) {
     let innerText = display.innerText.split(":")
     display.innerText = innerText[0] + " : " + range.value + suffix;
 
-    //console.log(range.value)
-
 }
 
 function getDistance(coordsUser, coordsPresta) {
 
-    // TODO: implémenter le vrai calcul de distances
+    if(coordsPresta === "" && coordsUser === "") {
+        return Math.floor(Math.random() * 30);
+    } else {
+        console.log(coordsUser, coordsPresta);
+        return Math.floor(Math.random() * 30);
 
-    return Math.floor(Math.random() * 30);
+    }
+}
+
+function getClientCoords() {
+
+    const client = JSON.parse(window.localStorage.getItem("client"));
+
+    if(client !== undefined) {
+        return client.localisation.split(", ");
+    }
+
 }
 
 // ça j'ai copié de chatgpt juste pour avoir un visuel vite fais

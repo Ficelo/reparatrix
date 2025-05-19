@@ -11,63 +11,49 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="javascript/map.js" defer></script>
     <script src="javascript/search.js" defer></script>
+    <script src="javascript/login.js"></script>
+    <script src="javascript/header-footer.js"></script>
 </head>
-<body>
+<body onload="checkLoggedIn(); onInitSearch()">
 
-    <div class="topbar-reparatrix">
-        <a href="index.html"><img src="images/logo%20reparatrix.png" alt="logo"></a>
-        <button>Inscription</button>
-        <button>Connexion</button>
-        <button>Réglages</button>
-    </div>
+    <header-reparatrix></header-reparatrix>
 
-    <div id="seach-page-content">
-        <div id="seach-results-wrapper">
-            <div id="seach-wrapper">
-                <div id="search-bar-wrapper">
-                    <div id="search-bar">
-                        <input class="form-control" id="search" type="text" placeholder="Entrez un métier...">
-                        <button class="btn btn-primary" onclick="searchForProfession('search')" id="search-button">Search</button>
-                    </div>
-                    <div class="ranges">
-                        <div class="range-group">
-                            <label id="noteLabel" for="noteRange">Note minimum : 0</label>
-                            <input type="range" class="form-range" id="noteRange" value="0" min="0" max="5" step="0.1" oninput="updateSearchValueDisplay('noteLabel', 'noteRange', '')">
+        <div id="seach-page-content">
+            <div id="seach-results-wrapper">
+                <div id="seach-wrapper">
+                    <div id="search-bar-wrapper">
+                        <div id="search-bar">
+                            <input class="form-control" id="search" type="text" placeholder="Entrez un métier..." onkeypress="searchEnter()">
+                            <button class="btn btn-primary" onclick="searchForProfession('search')" id="search-button">Search</button>
                         </div>
-                        <div class="range-group">
-                            <label id="distanceLabel" for="distanceRange">Distance maximum : 10 km</label>
-                            <input type="range" class="form-range" id="distanceRange" min="0" max="30" value="10" oninput="updateSearchValueDisplay('distanceLabel','distanceRange', ' km')">
+                        <div class="ranges">
+                            <div class="range-group">
+                                <label id="noteLabel" for="noteRange">Note minimum : 0</label>
+                                <input type="range" class="form-range" id="noteRange" value="0" min="0" max="5" step="0.1" oninput="updateSearchValueDisplay('noteLabel', 'noteRange', '')">
+                            </div>
+                            <div class="range-group">
+                                <label id="distanceLabel" for="distanceRange">Distance maximum : 10 km</label>
+                                <input type="range" class="form-range" id="distanceRange" min="0" max="30" value="30" oninput="updateSearchValueDisplay('distanceLabel','distanceRange', ' km')">
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
+                <div id="results">
 
-
+                </div>
             </div>
-            <div id="results">
-
-            </div>
-        </div>
 
 
-        <div id="map-wrapper">
-            <div id="map">
-<!--                <img src="images/map%20placeholder.png" alt="map placeholder">-->
+            <div id="map-wrapper">
+                <div id="map">
+                    <!--                <img src="images/map%20placeholder.png" alt="map placeholder">-->
+                </div>
             </div>
         </div>
-    </div>
 
-    <div class="footer-reparatrix">
-
-        <a href="https://www.linkedin.com/school/isep-paris/posts/?feedView=all"><img src="images/linkedin.png" alt="IcôneLinkedin" style="width: 50px; height: 50px;"></a>
-        <a href="https://github.com/Ficelo/reparatrix.git"><img src="images/git.png" alt="IcôneGit" style="width: 50px; height: 50px;"></a>
-        <a href="https://www.instagram.com/isepparis/?hl=fr"><img src="images/insta.png" alt="IcôneInsta" style="width: 50px; height: 50px;"></a>
-        <a href="https://www.youtube.com/@Isep75"><img src="images/ytb.png" alt="IcôneYoutube" style="width: 50px; height: 50px;"></a>
-
-        <button>A propos</button>
-        <button>CGU</button>
-        <button>FAQ</button>
-
-    </div>
+    <footer-reparatrix></footer-reparatrix>
 
 </body>
 </html>

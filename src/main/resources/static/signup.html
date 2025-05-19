@@ -2,9 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Sign up</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/general.css">
+    <link rel="stylesheet" href="css/signup.css">
+
+    <script src="javascript/signup.js"></script>
+    <script src="javascript/header-footer.js"></script>
 </head>
 <body>
+
+    <header-reparatrix></header-reparatrix>
+
+    <main>
+        <form>
+            <div id="form-container">
+                <div class="column">
+                    <input type="text" placeholder="Nom" id="nom">
+                    <input type="text" placeholder="Prénom" id="prenom">
+                    <input type="email" placeholder="Email" id="email">
+                    <input type="password" placeholder="Mot de passe" id="password">
+                    <input type="password" placeholder="Confirmer le mot de passe" id="password-confirm">
+
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            Client
+                            <input type="radio" name="user-type" id="radio-client" checked onchange="toggleEntrepriseFields()">
+                        </label>
+                        <label class="radio-option">
+                            Entreprise
+                            <input type="radio" name="user-type" id="radio-entreprise" onchange="toggleEntrepriseFields()">
+                        </label>
+                    </div>
+
+                </div>
+
+                <div id="entreprise-fields">
+                    <div class="column">
+                        <input type="text" placeholder="Entreprise" id="entreprise">
+                        <input type="text" placeholder="Profession" id="profession">
+                        <input type="text" placeholder="SIRET" id="siret">
+                    </div>
+                </div>
+
+                <button id="geo-button" onclick="getGeolocation(event)">Localisez vous</button>
+                <button class="btn btn-primary" id="create-button" disabled onclick="createAccountValidation(event)">Create account</button>
+            </div>
+        </form>
+
+    </main>
+
+    <footer-reparatrix></footer-reparatrix>
 
 </body>
 </html>

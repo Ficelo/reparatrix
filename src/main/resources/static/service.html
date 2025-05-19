@@ -9,37 +9,47 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
 
     <script src="javascript/service.js"></script>
+    <script src="javascript/login.js"></script>
+    <script src="javascript/header-footer.js"></script>
 </head>
-<body onload="loadService()">
+<body onload="loadService(); checkLoggedIn()">
 
-    <h1>Le service : </h1>
-    <div id="service">
+    <header-reparatrix></header-reparatrix>
 
-    </div>
+    <main>
+        <h1>Le service : </h1>
+        <div id="service">
 
-    <h1>Avis : </h1>
-    <div id="avis">
+        </div>
 
-    </div>
+        <h1>Avis : </h1>
+        <div id="avis">
 
-    <h3>Laisser un avis : </h3>
-    <label for="commentaire">Commentaire :</label>
-    <textarea id="commentaire"></textarea>
-    <div class="star-rating">
-        <input type="radio" id="star5" name="rating" value="5">
-        <label for="star5">&#9733;</label>
-        <input type="radio" id="star4" name="rating" value="4">
-        <label for="star4">&#9733;</label>
-        <input type="radio" id="star3" name="rating" value="3">
-        <label for="star3">&#9733;</label>
-        <input type="radio" id="star2" name="rating" value="2">
-        <label for="star2">&#9733;</label>
-        <input type="radio" id="star1" name="rating" value="1">
-        <label for="star1">&#9733;</label>
-    </div>
+        </div>
 
-    <button class="btn btn-primary" onclick="postAvis()">Confirmer</button>
+        <h3>Laisser un avis : </h3>
+        <label for="commentaire">Commentaire :</label>
+        <textarea id="commentaire"></textarea>
+        <div class="star-rating">
+            <input type="radio" id="star5" name="rating" value="5">
+            <label for="star5">&#9733;</label>
+            <input type="radio" id="star4" name="rating" value="4">
+            <label for="star4">&#9733;</label>
+            <input type="radio" id="star3" name="rating" value="3">
+            <label for="star3">&#9733;</label>
+            <input type="radio" id="star2" name="rating" value="2">
+            <label for="star2">&#9733;</label>
+            <input type="radio" id="star1" name="rating" value="1">
+            <label for="star1">&#9733;</label>
+        </div>
 
+        <button class="btn btn-primary" onclick="postAvis()">Confirmer</button>
+        <button class="btn btn-primary" onclick="commander()">Commander</button>
+        <button class="btn btn-primary" onclick="contacter()">Contacter le prestataire</button>
+
+    </main>
+
+    <footer-reparatrix></footer-reparatrix>
 
 </body>
 </html>
