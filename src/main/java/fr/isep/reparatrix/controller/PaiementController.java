@@ -1,6 +1,5 @@
 package fr.isep.reparatrix.controller;
 
-import java.io.IOException;
 
 import com.stripe.Stripe;
 import com.stripe.model.checkout.Session;
@@ -11,14 +10,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @Controller
 public class PaiementController {
 
-    @Value("${stripe.secret.key}")
+
     private String stripeSecretKey;
 
     @PostConstruct
     public void init() {
+        Dotenv dotenv = Dotenv.load();
+        stripeSecretKey = dotenv.get("stripe.secret.key");
         Stripe.apiKey = stripeSecretKey;
     }
 
