@@ -1,0 +1,32 @@
+main {
+    background-color: #EEEACF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+}
+
+#category-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 1rem;
+}
+
+.category-box {
+    background-color: #8EBCA4;
+    color: #000000;
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+}
+
+.view-button {
+    padding: 0.5rem 1rem;
+    background-color: #E75858;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}

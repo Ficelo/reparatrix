@@ -21,7 +21,7 @@ function displayFAQs(faqs) {
     faqContainer.innerHTML = '';
 
     if (faqs.length === 0) {
-        faqContainer.innerHTML = '<div class="faq-box"><h2>Aucune question-réponse trouvée</h2></div>';
+        faqContainer.innerHTML = '<div class="faq-box"><h2>Rien.</h2></div>';
         return;
     }
 
@@ -51,7 +51,7 @@ async function searchFAQs(keyword) {
     } catch (error) {
         console.error('Search error:', error);
         document.getElementById('faq-container').innerHTML =
-            '<div class="faq-box"><h2>Erreur lors de la recherche</h2></div>';
+            '<div class="faq-box"><h2>Aucune question ne correspond à votre recherche.</h2></div>';
     }
 }
 
