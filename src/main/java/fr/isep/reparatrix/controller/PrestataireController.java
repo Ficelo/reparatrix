@@ -54,6 +54,11 @@ public class PrestataireController {
 
     @GetMapping
     @ResponseBody
+    @RequestMapping("/userId/{id}")
+    public List<Prestataire> getPrestataireByUserId(@PathVariable Long id) { return prestataireRepository.getPrestataireByUserId(id);}
+
+    @GetMapping
+    @ResponseBody
     @RequestMapping("/profession/{profession}")
     public List<Prestataire> getPrestatairesByProfession(@PathVariable String profession) {
         return prestataireRepository.findByProfession(profession);

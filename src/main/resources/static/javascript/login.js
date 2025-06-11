@@ -8,7 +8,17 @@ async function login() {
         console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
         console.log("user in localstorage", JSON.parse(localStorage.getItem("user")));
-        await getClientByUserId(user.id);
+        try {
+            await getClientByUserId(user.id);
+        } catch (error) {
+            console.warn("Failed to get client:", error);
+        }
+
+        try {
+            await getPrestataireByUserId(user.id);
+        } catch (error) {
+            console.warn("Failed to get prestataire:", error);
+        }
         window.location.href = "/";
     })
 
@@ -21,7 +31,14 @@ async function getUserByEmail(email) {
 }
 
 async function getPrestataireByUserId(userId) {
-    // Todo : implémenter
+    const response = await fetch('/api/prestataires/userId/' + userId);
+    if (!response.ok) throw new Error("Http error" + response.status);
+    const presta = await response.json();
+    console.log(presta);
+
+    presta.forEach( pre => {
+        localStorage.setItem("prestataire", JSON.stringify(pre));
+    })
 }
 
 async function getClientByUserId(userId) {

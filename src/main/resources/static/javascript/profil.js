@@ -4,10 +4,26 @@ let USER_CONVERSATIONS = []
 function onLoad() {
     USER = JSON.parse(window.localStorage.getItem("user"));
     getConversations();
+    checkPrestataire();
 }
 
 function userAlreadyAdded(user) {
     return USER_CONVERSATIONS.some(existingUser => existingUser.id === user.id);
+}
+
+function checkPrestataire() {
+
+    let presta = JSON.parse(window.localStorage.getItem("prestataire"));
+
+    const ajoutServiceTitle = document.getElementById("ajout-service-title");
+    const ajoutServiceDiv = document.getElementById("ajout-service-div");
+
+    console.log("prestataire", presta);
+    if(presta == null){
+        ajoutServiceTitle.remove();
+        ajoutServiceTitle.remove();
+    }
+
 }
 
 async function getConversations() {
@@ -43,5 +59,33 @@ async function getConversations() {
     }
 
     console.log(USER_CONVERSATIONS);
+
+}
+
+async function addService() {
+
+    const presta = JSON.parse(window.localStorage.getItem("prestataire"));
+
+    const serviceDescription = document.getElementById("service-description");
+    const servicePrice = document.getElementById("service-price");
+
+    let service = {
+        description: serviceDescription.value,
+        order_id: 1,
+        prix: servicePrice.value.toString(),
+        prestataire: presta
+    }
+
+    console.log(service);
+
+    const response = await fetch("api/services", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(service)
+    });
+
+    console.log(response);
 
 }

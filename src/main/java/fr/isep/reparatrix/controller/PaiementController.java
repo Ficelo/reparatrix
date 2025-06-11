@@ -25,9 +25,13 @@ public class PaiementController {
         Stripe.apiKey = stripeSecretKey;
     }
 
+    @Value("${server.port}")
+    private String port;
+
     @PostMapping("/create-checkout-session")
     public ResponseEntity<Void> createCheckoutSession() {
-        String domaine = "http://localhost:8082";
+        String domaine = "http://localhost:" + port;
+
 
         SessionCreateParams params = SessionCreateParams.builder()
                 .setMode(SessionCreateParams.Mode.PAYMENT)
