@@ -1,5 +1,10 @@
 let USER = {};
 let USER_CONVERSATIONS = []
+let CURRENT_SERVICE = {};
+
+const ORDER_STATUS_PAYED = "PAYÉ";
+const ORDER_STATUS_IN_PROGRESS = "EN COURS";
+const ORDER_STATUS_DONE = "DONE";
 
 function onLoad() {
     USER = JSON.parse(window.localStorage.getItem("user"));
@@ -11,19 +16,126 @@ function userAlreadyAdded(user) {
     return USER_CONVERSATIONS.some(existingUser => existingUser.id === user.id);
 }
 
-function checkPrestataire() {
+async function checkPrestataire() {
 
     let presta = JSON.parse(window.localStorage.getItem("prestataire"));
 
     const ajoutServiceTitle = document.getElementById("ajout-service-title");
     const ajoutServiceDiv = document.getElementById("ajout-service-div");
 
+    const listeServiceTitre = document.getElementById("liste-services-titre");
+    const listeService = document.getElementById("liste-service");
+
     console.log("prestataire", presta);
-    if(presta == null){
+    if (presta == null) {
         ajoutServiceTitle.remove();
-        ajoutServiceTitle.remove();
+        ajoutServiceDiv.remove();
+        listeService.remove();
+        listeServiceTitre.remove()
+
+        let client = JSON.parse(localStorage.getItem("client"));
+
+        const commandes = await getOrders(client.id, false);
+        createCommandes(commandes);
+
+    } else {
+        const services = await getServices(presta.id);
+        services.map(service => {
+            const serv = new ServiceCardProfile();
+            serv.data = {
+                ...service,
+                profession: presta.profession
+            };
+            listeService.appendChild(serv);
+        });
+
+        const commandes = await getOrders(presta.id, true);
+        createCommandes(commandes);
+
     }
 
+}
+
+function createCommandes(commandes) {
+    const commandesDiv = document.getElementById("commandes");
+    commandesDiv.innerHTML = ""; // Clear previous entries if needed
+
+    commandes.forEach(comm => {
+        const li = document.createElement("li");
+
+        // Text info
+        li.innerText = `prestataire : ${comm.prestataire.entreprise}, client : ${comm.client.nom}, description : ${comm.description}`;
+
+        if(JSON.parse(window.localStorage.getItem("prestataire")) != null) {
+
+            const select = document.createElement("select");
+
+            [ORDER_STATUS_PAYED, ORDER_STATUS_IN_PROGRESS, ORDER_STATUS_DONE].forEach(statusOption => {
+                const option = document.createElement("option");
+                option.value = statusOption;
+                option.text = statusOption;
+                select.appendChild(option);
+            });
+
+            select.value = comm.status;
+
+            // Listen for change event to update status
+            select.addEventListener("change", (e) => {
+                const newStatus = e.target.value;
+                updateOrderStatus(comm.id, newStatus);
+            });
+
+            li.appendChild(select);
+
+        } else {
+            li.innerText = li.innerText + `, status : ${comm.status}`
+        }
+
+        commandesDiv.appendChild(li);
+
+
+    });
+}
+
+function updateOrderStatus(commId, newStatus) {
+    // Example: Send PATCH or POST request to update the status on the server
+    fetch(`/api/orderstatus/${commId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: newStatus }),
+    })
+        .then(res => {
+            if (!res.ok) throw new Error('Failed to update status');
+            return res.json();
+        })
+        .then(data => {
+            console.log('Status updated:', data);
+            // Optionally update UI or show success message here
+        })
+        .catch(err => {
+            console.error('Error updating status:', err);
+            alert('Could not update order status');
+        });
+}
+
+async function getServices(idPrestataire){
+    const response = await fetch('/api/services/prestataireId/' + idPrestataire);
+    if (!response.ok) throw new Error("HTTP error " + response.status);
+    return await response.json();
+}
+
+async function getOrders(id, presta){
+    if(presta) {
+        const response = await fetch('/api/orderstatus/prestataire/' + id);
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        return await response.json();
+    } else {
+        const response = await fetch('/api/orderstatus/client/' + id);
+        if (!response.ok) throw new Error("HTTP error " + response.status);
+        return await response.json();
+    }
 }
 
 async function getConversations() {
@@ -89,3 +201,88 @@ async function addService() {
     console.log(response);
 
 }
+
+function modifyService(service) {
+    document.getElementById("formModal").style.display = "block";
+    CURRENT_SERVICE = service;
+}
+
+function submitForm() {
+    const description = document.getElementById("descriptionInput").value;
+    const prix = document.getElementById("prixInput").value;
+
+    if (!description || !prix) {
+        alert("Please fill in all fields.");
+    } else {
+        document.getElementById("formModal").style.display = "none";
+
+        CURRENT_SERVICE.prix = prix;
+        CURRENT_SERVICE.description = description;
+
+        const result = fetch("api/services/" + CURRENT_SERVICE.id, {
+            method : "PUT",
+            headers : {
+                "Content-Type": "application/json",
+            },
+            body : JSON.stringify(CURRENT_SERVICE)
+        });
+
+        CURRENT_SERVICE = {};
+    }
+}
+
+class ServiceCardProfile extends HTMLElement {
+
+    constructor() {
+        super();
+        this.attachShadow({mode: "open"});
+    }
+
+    set data(service) {
+        this.render(service);
+    }
+
+    render(service) {
+        const { description, prix, profession, id } = service;
+        this.shadowRoot.innerHTML = `
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+            <style>
+                .card {
+                    margin-bottom: 5px;
+                    transition: transform 0.2s ease, box-shadow 0.2s ease;
+                }
+                .card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+                .entreprise-affichage {
+                    display: flex;
+                    flex-direction: row;
+                }
+                img {
+                    width: 200px;
+                    height: auto;
+                    border-radius: 10px;
+                    object-fit: cover;
+                    margin-right: 20px;
+                }
+            </style>
+            <div class="card" onclick="window.location = 'service?service=${id}'">
+                <div class="card-body entreprise-affichage">
+                    <img alt="image métier" src="../images/professions/${profession}.png"/>
+                    <div>
+                        <p>${description}</p>
+                        <p>Prix : <span id="prix">${prix} €</span></p>
+                    </div>
+                </div>
+            </div>    
+            <button class="btn btn-primary" id="modifyBtn">Modifier</button>  
+        `;
+
+        this.shadowRoot.querySelector("#modifyBtn").addEventListener("click", () => {
+            modifyService(service);
+        });
+    }
+}
+
+customElements.define("service-card-profil", ServiceCardProfile);

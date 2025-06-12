@@ -1,4 +1,8 @@
-let SERVICE = null;
+const ORDER_STATUS_PAYED = "PAYÉ";
+const ORDER_STATUS_IN_PROGRESS = "EN COURS";
+const ORDER_STATUS_DONE = "DONE";
+
+let SERVICE = {};
 
 function postAvis() {
     // TODO : faire un check pour vérifier que tout est bien rempli
@@ -78,8 +82,49 @@ async function loadService() {
 
 }
 
+function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+
+    const pad = (n) => n.toString().padStart(2, '0');
+
+    const day = pad(date.getDate());
+    const month = pad(date.getMonth() + 1); // Months are zero-based
+    const year = date.getFullYear();
+
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+
+    return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
 function commander() {
-    // TODO : Mettre le truc de paiment quand mogane aura fini
+
+    const client = JSON.parse(localStorage.getItem("client"));
+    const service = SERVICE;
+
+    console.log("client : ", client);
+    console.log("service : ", service);
+
+    let orderStatus = {
+        prestataireId : service.prestataire.id,
+        clientId : client.id,
+        status : ORDER_STATUS_PAYED,
+        description : service.description + " " + service.prix + "€" + ", the " + formatTimestamp(Date.now())
+    }
+
+    console.log(orderStatus);
+
+    const response = fetch("api/orderstatus", {
+        method : "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderStatus)
+    }).then(res => res.json())
+        .then(data => console.log(data))
+        .catch(err => console.error(err));
+
 }
 
 function contacter() {

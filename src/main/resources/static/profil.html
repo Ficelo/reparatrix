@@ -17,8 +17,8 @@
 
     <header-reparatrix></header-reparatrix>
     <main>
-        <h1>Réglages</h1>
-        <div class="reglages">
+        <h1>Commandes en cours</h1>
+        <div id="commandes">
 
         </div>
         <h1>Conversations en cours</h1>
@@ -36,6 +36,17 @@
             <br>
             <button class="btn btn-primary" onclick="addService()">Ajouter</button>
 
+        </div>
+
+        <h1 id="liste-services-titre">Liste des services</h1>
+        <div id="liste-service">
+
+        </div>
+
+        <div id="formModal" style="display:none;">
+            <label>Desciption : <input type="text" id="descriptionInput" /></label><br />
+            <label>Prix : <input type="number" id="prixInput" /></label><br />
+            <button onclick="submitForm()">Submit</button>
         </div>
 
     </main>

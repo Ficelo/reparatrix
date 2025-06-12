@@ -37,4 +37,14 @@ public class ServiceController {
         return serviceRepository.findByPrestataireId(id);
     }
 
+    @PutMapping("/{id}")
+    public Service updateService(@PathVariable Long id, @RequestBody Service updatedService) {
+        return serviceRepository.findById(id).map(service -> {
+            service.setDescription(updatedService.getDescription());
+            service.setPrix(updatedService.getPrix());
+            // update any other fields if needed
+            return serviceRepository.save(service);
+        }).orElse(null);
+
+    }
 }
