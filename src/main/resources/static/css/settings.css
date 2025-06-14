@@ -1,0 +1,7 @@
+/* settings.css */
+input::placeholder {
+    color: #aaa;
+}
+.card {
+    border-radius: 12px;
+}

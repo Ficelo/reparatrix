@@ -57,18 +57,33 @@ async function checkPrestataire() {
 }
 
 function createCommandes(commandes) {
-    const commandesDiv = document.getElementById("commandes");
-    commandesDiv.innerHTML = ""; // Clear previous entries if needed
+    const commandesTbody = document.getElementById("commandes");
+    commandesTbody.innerHTML = ""; // Clear previous rows
+
+    const isPrestataire = JSON.parse(window.localStorage.getItem("prestataire")) !== null;
 
     commandes.forEach(comm => {
-        const li = document.createElement("li");
+        const row = document.createElement("tr");
 
-        // Text info
-        li.innerText = `prestataire : ${comm.prestataire.entreprise}, client : ${comm.client.nom}, description : ${comm.description}`;
+        // Create columns
+        const prestataireCell = document.createElement("td");
+        prestataireCell.textContent = comm.prestataire.entreprise;
 
-        if(JSON.parse(window.localStorage.getItem("prestataire")) != null) {
+        const clientCell = document.createElement("td");
+        clientCell.textContent = comm.client.nom;
 
+        const descriptionCell = document.createElement("td");
+        descriptionCell.textContent = comm.description.split(", ")[0];
+        console.log(comm.description.split(", "))
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = comm.description.split(", ")[1];
+
+        const statusCell = document.createElement("td");
+
+        if (isPrestataire) {
             const select = document.createElement("select");
+            select.classList.add("form-select", "form-select-sm");
 
             [ORDER_STATUS_PAYED, ORDER_STATUS_IN_PROGRESS, ORDER_STATUS_DONE].forEach(statusOption => {
                 const option = document.createElement("option");
@@ -79,23 +94,27 @@ function createCommandes(commandes) {
 
             select.value = comm.status;
 
-            // Listen for change event to update status
             select.addEventListener("change", (e) => {
                 const newStatus = e.target.value;
                 updateOrderStatus(comm.id, newStatus);
             });
 
-            li.appendChild(select);
-
+            statusCell.appendChild(select);
         } else {
-            li.innerText = li.innerText + `, status : ${comm.status}`
+            statusCell.textContent = comm.status;
         }
 
-        commandesDiv.appendChild(li);
+        // Append cells to row
+        row.appendChild(prestataireCell);
+        row.appendChild(clientCell);
+        row.appendChild(descriptionCell);
+        row.appendChild(dateCell);
+        row.appendChild(statusCell);
 
-
+        commandesTbody.appendChild(row);
     });
 }
+
 
 function updateOrderStatus(commId, newStatus) {
     // Example: Send PATCH or POST request to update the status on the server
@@ -163,12 +182,27 @@ async function getConversations() {
         }
     });
 
-    for( let user of USER_CONVERSATIONS) {
+    for (let user of USER_CONVERSATIONS) {
+        const card = document.createElement("div");
+        card.classList.add("card", "mb-3", "p-3", "shadow-sm");
+        card.style.cursor = "pointer";
+
         const link = document.createElement("a");
         link.href = "/chat?u=" + user.id;
         link.innerText = "Conversation avec : " + user.username;
-        conversationDiv.appendChild(link);
+        link.style.textDecoration = "none";
+        link.style.color = "#282829";
+        link.classList.add("h5", "m-0");
+
+        // Make whole card clickable (optional)
+        card.addEventListener("click", () => {
+            window.location.href = link.href;
+        });
+
+        card.appendChild(link);
+        conversationDiv.appendChild(card);
     }
+
 
     console.log(USER_CONVERSATIONS);
 

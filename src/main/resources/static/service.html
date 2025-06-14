@@ -16,38 +16,74 @@
 
     <header-reparatrix></header-reparatrix>
 
-    <main>
-        <h1>Le service : </h1>
-        <div id="service">
+    <main class="container mt-4">
+        <div class="row">
+            <!-- Left Column: Service + Buttons -->
+            <div class="col-md-6 mb-4">
+                <h3>Description</h3>
+                <div id="service" class="mb-3">
+                    <!-- Content will be injected here -->
+                </div>
 
+                <img id="image-profession" alt="Image profession">
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-secondary" onclick="commander()">Commander</button>
+                    <button class="btn btn-outline-secondary" onclick="contacter()">Contacter le prestataire</button>
+                </div>
+            </div>
+
+            <!-- Right Column: Avis Form -->
+            <div class="col-md-6">
+                <h3>Laisser un avis :</h3>
+                <div class="avis-form card p-4 mb-4">
+                    <div class="mb-3">
+                        <label for="commentaire" class="form-label">Commentaire :</label>
+                        <textarea id="commentaire" class="form-control" rows="4" placeholder="Écrivez votre avis ici..."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Note :</label>
+                        <div class="star-rating">
+                        <span>
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5">&#9733;</label>
+                        </span>
+                            <span>
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4">&#9733;</label>
+                        </span>
+                            <span>
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3">&#9733;</label>
+                        </span>
+                            <span>
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2">&#9733;</label>
+                        </span>
+                            <span>
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1">&#9733;</label>
+                        </span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary" onclick="postAvis()">Confirmer</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <h1>Avis : </h1>
-        <div id="avis">
-
+        <!-- Full Width: Avis Display -->
+        <div class="row">
+            <div class="col-12">
+                <h3>Avis :</h3>
+                <div id="avis"></div>
+            </div>
         </div>
-
-        <h3>Laisser un avis : </h3>
-        <label for="commentaire">Commentaire :</label>
-        <textarea id="commentaire"></textarea>
-        <div class="star-rating">
-            <input type="radio" id="star5" name="rating" value="5">
-            <label for="star5">&#9733;</label>
-            <input type="radio" id="star4" name="rating" value="4">
-            <label for="star4">&#9733;</label>
-            <input type="radio" id="star3" name="rating" value="3">
-            <label for="star3">&#9733;</label>
-            <input type="radio" id="star2" name="rating" value="2">
-            <label for="star2">&#9733;</label>
-            <input type="radio" id="star1" name="rating" value="1">
-            <label for="star1">&#9733;</label>
-        </div>
-
-        <button class="btn btn-primary" onclick="postAvis()">Confirmer</button>
-        <button class="btn btn-primary" onclick="commander()">Commander</button>
-        <button class="btn btn-primary" onclick="contacter()">Contacter le prestataire</button>
-
     </main>
+
 
     <footer-reparatrix></footer-reparatrix>
 

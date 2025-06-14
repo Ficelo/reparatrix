@@ -51,10 +51,20 @@ function renderMessages(msgs) {
     container.innerHTML = '';
     msgs.forEach(msg => {
         const div = document.createElement('div');
+        const containerDiv = document.createElement("div");
+
+        containerDiv.classList.add("message");
+
+
         div.classList.add('chat-message');
         div.classList.add(msg.expediteur.id === SENDER.id ? 'sent' : 'received');
         div.innerText = msg.texte;
-        container.appendChild(div);
+
+        containerDiv.appendChild(div);
+
+        container.appendChild(containerDiv);
+
+
     });
 
     container.scrollTop = container.scrollHeight;

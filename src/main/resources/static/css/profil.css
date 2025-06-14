@@ -1,0 +1,13 @@
+#conversations a {
+    text-decoration: none;
+    color: #2b2b2b;
+    font-weight: 500;
+}
+#conversations a:hover {
+    text-decoration: underline;
+}
+
+#formModal {
+    background-color: #fff;
+    border-radius: 10px;
+}
