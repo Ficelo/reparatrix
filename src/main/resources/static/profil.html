@@ -16,16 +16,66 @@
 <body onload="checkLoggedIn(); onLoad()">
 
     <header-reparatrix></header-reparatrix>
-    <main>
-        <h1>Réglages</h1>
-        <div class="reglages">
+    <main class="container my-4">
 
-        </div>
-        <h1>Conversations en cours</h1>
-        <div id="conversations">
+        <section class="mb-5">
+            <h2 class="mb-3">Commandes en cours</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Prestataire</th>
+                        <th>Client</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Statut</th>
+                    </tr>
+                    </thead>
+                    <tbody id="commandes"></tbody>
+                </table>
+            </div>
+        </section>
 
+        <section class="mb-5">
+            <h2 class="mb-3">Conversations en cours</h2>
+            <div id="conversations" class="d-flex flex-column gap-2"></div>
+        </section>
+
+        <section id="ajout-service-section" class="mb-5">
+            <h2 id="ajout-service-title" class="mb-3">Ajouter un service</h2>
+            <div id="ajout-service-div" class="card p-4 shadow-sm">
+                <div class="mb-3">
+                    <label for="service-description" class="form-label">Description :</label>
+                    <input id="service-description" type="text" class="form-control" placeholder="Ex: Réparation de vélo">
+                </div>
+                <div class="mb-3">
+                    <label for="service-price" class="form-label">Prix :</label>
+                    <input type="number" id="service-price" class="form-control" placeholder="Ex: 50">
+                </div>
+                <button class="btn btn-primary" onclick="addService()">Ajouter</button>
+            </div>
+        </section>
+
+        <section class="mb-5">
+            <h2 id="liste-services-titre" class="mb-3">Liste des services</h2>
+            <div id="liste-service" class="row row-cols-1 row-cols-md-2 g-4"></div>
+        </section>
+
+        <div id="formModal" class="card p-4 shadow" style="display:none; max-width: 500px; margin: 0 auto;">
+            <h5>Modifier un service</h5>
+            <div class="mb-3">
+                <label class="form-label">Description :</label>
+                <input type="text" id="descriptionInput" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Prix :</label>
+                <input type="number" id="prixInput" class="form-control" />
+            </div>
+            <button class="btn btn-success" onclick="submitForm()">Confirmer</button>
         </div>
+
     </main>
+
     <footer-reparatrix></footer-reparatrix>
 
 </body>

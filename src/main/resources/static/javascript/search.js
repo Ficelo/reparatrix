@@ -35,16 +35,27 @@ function searchForProfession(inputId) {
 
     resultats.innerHTML = '';
 
+    let clientCoords = getClientCoords();
+
+    window.myMap.setView([clientCoords[0], clientCoords[1]], 12);
+    addMapMarker(clientCoords[0], clientCoords[1], "Vous");
+
     fetch('/api/prestataires?profession=' + input.value.toLowerCase() + "&noteMin=" + noteMin.value + "&distanceMax=" + distanceMax.value)
         .then(reponse => reponse.json())
         .then(prestas => {
             prestas.forEach(presta => {
-                const card = new PrestataireCard(presta.entreprise, getDistance(getClientCoords(), ""), presta.note, presta.profession, presta.id)
-                for (let i = 0; i < 8; i++) {
-                    const card = new PrestataireCard(presta.entreprise, getDistance(getClientCoords(), ""), presta.note, presta.profession, presta.id);
+                console.log("distance : ", getDistance(getClientCoords(), presta.localisation.split(", ")) );
+                console.log("distance max : ", distanceMax.value);
+                if(parseFloat(getDistance(getClientCoords(), presta.localisation.split(", ")))  <= parseFloat(distanceMax.value)) {
+                    const card = new PrestataireCard(presta.entreprise, getDistance(getClientCoords(), presta.localisation.split(", ")), presta.note, presta.profession, presta.id);
                     resultats.appendChild(card);
-                    addRandomMapMarker(48.864716, 2.349014, presta.entreprise, 10000);
+                    let loc = presta.localisation.split(", ");
+                    console.log(loc);
+                    addMapMarker(presta.localisation.split(", ")[1], presta.localisation.split(", ")[0], presta.entreprise);
+                    //addRandomMapMarker(48.864716, 2.349014, presta.entreprise, 10000);
                 }
+
+
             });
         })
         .catch( err => console.error('Error fetching prestataires:', err))
@@ -62,14 +73,31 @@ function updateSearchValueDisplay(displayId, rangeId, suffix) {
 }
 
 function getDistance(coordsUser, coordsPresta) {
-
-    if(coordsPresta === "" && coordsUser === "") {
-        return Math.floor(Math.random() * 30);
-    } else {
-        console.log(coordsUser, coordsPresta);
-        return Math.floor(Math.random() * 30);
-
+    if (!coordsUser || !coordsPresta || coordsUser === "" || coordsPresta === "") {
+        return 0;
     }
+
+    console.log("coords : " + coordsUser + ", " + coordsPresta);
+
+    const toRad = (value) => value * Math.PI / 180;
+
+    const R = 6371; // Earth's radius in kilometers
+    const dLat = toRad(coordsPresta[1] - coordsUser[0]);
+    const dLon = toRad(coordsPresta[0] - coordsUser[1]);
+
+    const lat1 = toRad(coordsUser[0]);
+    const lat2 = toRad(coordsPresta[1]);
+
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1) * Math.cos(lat2) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    const distance = R * c;
+
+
+    return distance.toFixed(2);
 }
 
 function getClientCoords() {

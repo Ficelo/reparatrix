@@ -20,7 +20,8 @@ class HeaderReparatrix extends HTMLElement {
                     <a id="signup" href="/signup"><button>Inscription</button></a>
                     <a id="login" href="/login" hidden="false"><button>Connexion</button></a>
                     <a id="logout" hidden="true"><button onclick="logOut()">Log out</button></a>
-                    <a href="/"><button class="gear-button"><img src="../images/gear.png" alt="Réglages"></button></a>
+                    <a href="profil"><button class="gear-button"><img src="../images/user.png" alt="Profil"></button></a>
+                    <a href="/settings"><button class="gear-button"><img src="../images/gear.png" alt="Réglages"></button></a>
                 </div>
             </div>
         `;
@@ -63,9 +64,9 @@ class FooterReparatrix extends HTMLElement {
                     <a href="https://www.youtube.com/@Isep75"><img src="images/ytb.png" alt="YouTube" width="30" height="30"></a>
                 </div>
                 <div class="footer-links">
-                    <a href="/"><button>A propos</button></a>
-                    <a href="/"><button>CGU</button></a>
-                    <a href="/faq.html"><button>FAQ</button></a>
+                    <a href="/about-us"><button>A propos</button></a>
+                    <a href="/cgu"><button>CGU</button></a>
+                    <a href="/faq"><button>FAQ</button></a>
                 </div>
             </div>
         `

@@ -33,10 +33,8 @@ public class PageController {
         return "forward:/cancel.html";
     }
 
-    @GetMapping("/succes")
-    public String succes() {
-        return "success"; // nom du fichier .html dans templates/
-    }
+    @GetMapping("/success")
+    public String succes() {return "forward:/success.html";}
 
     @GetMapping("/test-geolocalisation")
     public String testGeoLocalisation() {
@@ -67,5 +65,15 @@ public class PageController {
 
     @GetMapping("/faq")
     public String faq() {return "forward:/faq.html";}
+
+    @GetMapping("/about-us")
+    public String aboutUs() {return "forward:/about-us.html";}
+
+    @GetMapping("/cgu")
+    public String cgu() {return "forward:/cgu.html";
+    }
+
+    @GetMapping("/settings")
+    public String settings() {return "forward:/settings.html";}
 
 }
