@@ -118,6 +118,7 @@ async function loadService() {
         const avis = getAvis(serv.id);
 
         avis.then((response) => {
+            response.reverse();
             response.map((avi) => {
                 console.log(avi);
                 // const aviP = document.createElement("p");

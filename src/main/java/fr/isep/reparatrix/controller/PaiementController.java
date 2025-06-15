@@ -39,17 +39,16 @@ public class PaiementController {
     public ResponseEntity<Map<String, String>> createCheckoutSession(@RequestBody Map<String, String> body) {
         String domaine = "http://localhost:" + port;
 
-        String productId = body.get("productId");  // <-- get product ID from request
+        String productId = body.get("productId");
 
         if (productId == null || productId.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
 
         try {
-            // Retrieve prices for this product
             PriceListParams priceListParams = PriceListParams.builder()
                     .setProduct(productId)
-                    .setLimit(1L)  // get only first price
+                    .setLimit(1L)
                     .build();
 
             PriceCollection prices = Price.list(priceListParams);

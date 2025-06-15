@@ -3,6 +3,8 @@ package fr.isep.reparatrix.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="User")
 public class User {
@@ -11,6 +13,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_user")
     private Long id;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Client> clients;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Prestataire> prestataires;
 
     private String username;
     private String password;

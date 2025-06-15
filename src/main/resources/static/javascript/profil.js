@@ -65,7 +65,6 @@ function createCommandes(commandes) {
     commandes.forEach(comm => {
         const row = document.createElement("tr");
 
-        // Create columns
         const prestataireCell = document.createElement("td");
         prestataireCell.textContent = comm.prestataire.entreprise;
 
@@ -104,7 +103,6 @@ function createCommandes(commandes) {
             statusCell.textContent = comm.status;
         }
 
-        // Append cells to row
         row.appendChild(prestataireCell);
         row.appendChild(clientCell);
         row.appendChild(descriptionCell);
@@ -114,7 +112,6 @@ function createCommandes(commandes) {
         commandesTbody.appendChild(row);
     });
 }
-
 
 function updateOrderStatus(commId, newStatus) {
     // Example: Send PATCH or POST request to update the status on the server
@@ -194,7 +191,6 @@ async function getConversations() {
         link.style.color = "#282829";
         link.classList.add("h5", "m-0");
 
-        // Make whole card clickable (optional)
         card.addEventListener("click", () => {
             window.location.href = link.href;
         });
@@ -230,7 +226,23 @@ async function addService() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(service)
-    });
+    })
+        .then(async res => {
+            let services = await getServices(presta.id);
+            const listeService = document.getElementById("liste-service");
+            listeService.innerHTML = ""
+            services.map(service => {
+                const serv = new ServiceCardProfile();
+                serv.data = {
+                    ...service,
+                    profession: presta.profession
+                };
+                listeService.appendChild(serv);
+            });
+            serviceDescription.value = "";
+            servicePrice.value = "";
+
+        })
 
     console.log(response);
 
