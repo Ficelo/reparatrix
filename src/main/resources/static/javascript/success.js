@@ -14,10 +14,8 @@ async function redirectAndOrder() {
         const data = await response.json();
         console.log("data:", data);
 
-        // Clean up localStorage properly
         localStorage.removeItem("currentOrder");
 
-        // ✅ Redirect AFTER fetch completes
         window.location.href = "/profil";
 
     } catch (err) {

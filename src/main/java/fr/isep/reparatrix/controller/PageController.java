@@ -76,4 +76,7 @@ public class PageController {
     @GetMapping("/settings")
     public String settings() {return "forward:/settings.html";}
 
+    @GetMapping("/admin")
+    public String admin() {return "forward:/admin.html";}
+
 }
